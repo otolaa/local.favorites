@@ -1,0 +1,21 @@
+{
+  "name": "otolaa/local.favorites",
+  "description": "bitrix favorites module",
+  "type": "bitrix-d7-module",
+  "keywords": [
+    "bitrix",
+    "favorites"
+  ],
+  "authors": [
+    {
+      "name": "Alex Noodles",
+      "email": "kalabunga82@gmail.com",
+      "role": "Author"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=8.0",
+    "composer/installers": "~1"
+  }
+}
