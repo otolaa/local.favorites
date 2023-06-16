@@ -19,6 +19,7 @@ $aTabs = [
             ["FAVOR_ERROR", "Сообщение об ошибке", null, ["textarea",2,50]],
             "Для системы",
             ["FAVOR_COOKIE_CODE", "Символьный код cookie", null, ["text",50]],
+            ["FAVOR_COOKIE_TIME", "Время жизни cookie в секундах", null, ["text",50]],
             ['FAVOR_URL_AJAX', 'Путь для AJAX', null, ['text',50]],
         ]
     ],
@@ -80,6 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && strlen($Update.$Apply.$RestoreDefaul
 <?endif;?>
 
 <? // информационная подсказка и т.д.
-/* echo BeginNote();?>
-<br>
-<? echo EndNote();*/
+echo BeginNote();?>
+Время жизни cookie - 1 час (3600 секунд) <br>
+<? echo EndNote();

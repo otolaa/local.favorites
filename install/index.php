@@ -31,6 +31,11 @@ Class local_favorites extends CModule
         return str_replace('index.php', $page, Loader::getLocal('modules/'.$this->MODULE_ID.'/install/index.php'));
     }
 
+    public function getStringText($obj)
+    {
+        return is_array($obj)?implode('<br>', $obj):$obj;
+    }
+
     public function InstallDB($arParams = array())
     {
         global $DB, $DBType, $APPLICATION;
@@ -49,7 +54,7 @@ Class local_favorites extends CModule
         $this->errors = $DB->Query($SQL, true);
 
         if($this->errors !== false) {
-            $APPLICATION->ThrowException(is_array($this->errors)?implode('<br>', $this->errors):$this->errors);
+            $APPLICATION->ThrowException($this->getStringText($this->errors));
             return false;
         } else {
             return true;
@@ -66,7 +71,7 @@ Class local_favorites extends CModule
         }
 
         if($this->errors !== false) {
-            $APPLICATION->ThrowException(is_array($this->errors)?implode('<br>', $this->errors):$this->errors);
+            $APPLICATION->ThrowException($this->getStringText($this->errors));
             return false;
         }
 
@@ -93,7 +98,8 @@ Class local_favorites extends CModule
         $this->InstallFiles();
         Option::set($this->MODULE_ID, 'FAVOR_ERROR', 'Произошла ошибка при добавлении в избранное!?');
         Option::set($this->MODULE_ID, 'FAVOR_COOKIE_CODE', 'FAVORITES');
-        Option::set($this->MODULE_ID, 'FAVOR_URL_AJAX', '/local/...');
+        Option::set($this->MODULE_ID, 'FAVOR_COOKIE_TIME', '3600');  // срок действия - 1 час (3600 секунд)
+        Option::set($this->MODULE_ID, 'FAVOR_URL_AJAX', '/local/components/local.favorites/add.favorites/ajax.php');
         $APPLICATION->IncludeAdminFile("Установка модуля ".$this->MODULE_ID, $this->getPageLocal('step.php'));
         return true;
     }
