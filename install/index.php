@@ -81,12 +81,14 @@ Class local_favorites extends CModule
     public function InstallFiles($arParams = [])
     {
         CopyDirFiles($this->getPageLocal('admin'), $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin");
+        CopyDirFiles($this->getPageLocal('components'), $_SERVER["DOCUMENT_ROOT"]."/local/components", true, true);
         return true;
     }
 
     public function UnInstallFiles()
     {
         DeleteDirFiles($this->getPageLocal('admin'), $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin");
+        DeleteDirFiles($this->getPageLocal('components'), $_SERVER["DOCUMENT_ROOT"]."/local/components");
         return true;
     }
 
