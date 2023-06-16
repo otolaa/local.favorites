@@ -3,8 +3,8 @@
 namespace Local\Favorites;
 
 use \Bitrix\Main\Engine\CurrentUser;
-use \Bitrix\Main\Config\Option;
-use \Local\Favorites\FavoritesTable;
+//use \Bitrix\Main\Config\Option;
+//use \Local\Favorites\FavoritesTable;
 
 use Bitrix\Main\Application;
 use Bitrix\Main\Web\Cookie;
@@ -63,9 +63,9 @@ class Api
         $request = Application::getInstance()->getContext()->getRequest();
         $f = $request->getCookie("FAVORITES");
 
-        $data = unserialize($f, ["allowed_classes" => false]);
+        $data = $f?json_decode($f, true):[];
 
-        // add or dell
+        // add || dell
         if ($dellCookie == true) {
             foreach ($data as $k=>$item) {
                 if ($item == intval($ID))
@@ -75,7 +75,7 @@ class Api
             $data[] = intval($ID);
 
         $context = Application::getInstance()->getContext();
-        $cookie = new Cookie("FAVORITES", serialize(array_unique($data)), time() + 3600);
+        $cookie = new Cookie("FAVORITES", json_encode(array_unique($data)), time() + 3600);
         $cookie->setDomain($context->getServer()->getHttpHost());
         $cookie->setHttpOnly(false);
         $cookie->setSecure(false);
@@ -106,7 +106,7 @@ class Api
             $request = Application::getInstance()->getContext()->getRequest();
             $f = $request->getCookie("FAVORITES");
 
-            return unserialize($f, ["allowed_classes" => false]);
+            return $f?json_decode($f, true):[];
         }
     }
 
