@@ -3,7 +3,6 @@
 namespace Local\Favorites;
 
 use \Bitrix\Main\Engine\CurrentUser;
-use \Bitrix\Main\Context;
 use \Bitrix\Main\Config\Option;
 use \Local\Favorites\FavoritesTable;
 
