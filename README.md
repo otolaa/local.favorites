@@ -18,14 +18,8 @@ $items = Api::getList();
 
 return $items;
 ```
-```
-Array
-(
-    [0] => 2
-)
-```
 
-DataManager для элементов в базе данных, таблица b_favorites:
+ORM DataManager для элементов в базе данных, таблица b_favorites:
 ```php
 use Local\Favorites\FavoritesTable;
 
@@ -55,3 +49,25 @@ composer require otolaa/local.favorites
 
 ## Требования
 * PHP >= 8.0
+
+## Внедрение, использование модуля
+* добавить компонент `add.favorites` в шапку `header.php` в шаблон сайта
+```php
+<? $APPLICATION->IncludeComponent('local.favorites:add.favorites',".default",
+    [
+        "CACHE_TYPE" => "N",
+        "CACHE_GROUPS" => "N",
+    ], false
+); ?>
+```
+
+* добавить в шаблон карточки товара `catalog.item` ссылку-кнопку для добавление в избранное
+```
+<a href="javascript:void(0);" data-add-favorites="<?=$item['ID']?>" class="add-favorites-item">
+    <span>&#10084;</span>
+</a>
+```
+
+* изменить или добавить настройки в модуле
+![local.favorites](https://github.com/otolaa/local.favorites/blob/main/install/img/setting.png "local.favorites")
+
