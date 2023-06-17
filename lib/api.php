@@ -60,9 +60,7 @@ class Api
 
     public static function addCookie($ID, $dellCookie = false)
     {
-        $request = Application::getInstance()->getContext()->getRequest();
-        $f = $request->getCookie("FAVORITES");
-
+        $f = $_COOKIE["FAVORITES"];
         $data = $f?json_decode($f, true):[];
 
         // add || dell
@@ -75,12 +73,15 @@ class Api
             $data[] = intval($ID);
 
         $context = Application::getInstance()->getContext();
-        $cookie = new Cookie("FAVORITES", json_encode(array_unique($data)), time() + self::getTimeCookie());
-        $cookie->setDomain($context->getServer()->getHttpHost());
-        $cookie->setHttpOnly(false);
-        $cookie->setSecure(false);
-        $context->getResponse()->addCookie($cookie);
-        $context->getResponse()->flush("");
+
+        setcookie("FAVORITES", json_encode(array_unique($data)), [
+            'expires' => time() + self::getTimeCookie(),
+            'path' => '/',
+            'domain' => $context->getServer()->getHttpHost(),
+            'secure' => false,
+            'httponly' => false,
+            'samesite' => 'None',
+        ]);
 
         return $ID;
     }
@@ -109,9 +110,7 @@ class Api
             return $rows;
 
         } else {
-            $request = Application::getInstance()->getContext()->getRequest();
-            $f = $request->getCookie("FAVORITES");
-
+            $f = $_COOKIE["FAVORITES"];
             return $f?json_decode($f, true):[];
         }
     }
