@@ -18,9 +18,9 @@ class GetAddFavorites extends \CBitrixComponent implements Controllerable
     public function configureActions()
     {
         return [
-            'test' => [
+            'sendFavorites' => [
                 'prefilters' => [
-                    new ActionFilter\Authentication(),
+                    //new ActionFilter\Authentication(),
                     new ActionFilter\HttpMethod(
                         array(ActionFilter\HttpMethod::METHOD_GET, ActionFilter\HttpMethod::METHOD_POST)
                     ),
@@ -39,7 +39,6 @@ class GetAddFavorites extends \CBitrixComponent implements Controllerable
     public function sendFavoritesAction($id, $go)
     {
         $arJson = ['id' => $id, 'go' => $go];
-
         if (Loader::includeModule("local.favorites") && $id && $go)
         {
             if ($go == 'addFavorites2') {
@@ -51,6 +50,7 @@ class GetAddFavorites extends \CBitrixComponent implements Controllerable
                 $arJson['dell_element_id'] = Api::dell($id);
         }
 
+        //AddMessage2Log("\n".var_export($arJson, true). " \n \r\n ", "arJson");
         return $arJson;
     }
 
