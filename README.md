@@ -67,6 +67,8 @@ composer require otolaa/local.favorites
     <span>&#10084;</span>
 </a>
 ```
+![button](https://github.com/otolaa/local.favorites/blob/main/install/img/button.png "button")
+
 
 * изменить или добавить настройки в модуле
 ![local.favorites](https://github.com/otolaa/local.favorites/blob/main/install/img/setting.png "local.favorites")
