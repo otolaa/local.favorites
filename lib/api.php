@@ -3,7 +3,7 @@
 namespace Local\Favorites;
 
 use \Bitrix\Main\Engine\CurrentUser;
-//use \Bitrix\Main\Config\Option;
+use \Bitrix\Main\Config\Option;
 //use \Local\Favorites\FavoritesTable;
 
 use Bitrix\Main\Application;
@@ -75,7 +75,7 @@ class Api
             $data[] = intval($ID);
 
         $context = Application::getInstance()->getContext();
-        $cookie = new Cookie("FAVORITES", json_encode(array_unique($data)), time() + 3600);
+        $cookie = new Cookie("FAVORITES", json_encode(array_unique($data)), time() + self::getTimeCookie());
         $cookie->setDomain($context->getServer()->getHttpHost());
         $cookie->setHttpOnly(false);
         $cookie->setSecure(false);
@@ -83,6 +83,12 @@ class Api
         $context->getResponse()->flush("");
 
         return $ID;
+    }
+
+    public static function getTimeCookie()
+    {
+        $c_time_day = intval(Option::get("local.favorites", "FAVOR_COOKIE_TIME", 1));
+        return 3600*24*$c_time_day;
     }
 
     public static function getList()
