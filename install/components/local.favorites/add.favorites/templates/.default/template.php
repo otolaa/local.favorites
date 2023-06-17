@@ -10,14 +10,11 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
-use \Bitrix\Main\Config\Option;
-
-$this->setFrameMode(true);
-$arJson = $arResult; ?>
+$this->setFrameMode(true); ?>
 
 <script type="text/javascript">
     BX.ready(function() {
-        var arr_list_0 = <?=json_encode($arJson['ITEMS'], JSON_UNESCAPED_UNICODE);?>;
+        var arr_list_0 = <?=json_encode($arResult['ITEMS'], JSON_UNESCAPED_UNICODE);?>;
         var arr_list = [];
 
         //--- object -> array ??!!
@@ -50,40 +47,23 @@ $arJson = $arResult; ?>
 
                 this.classList.toggle("delete");
 
-                getPostData({
+                let data_param = {
                     id:this.getAttribute('data-add-favorites'),
                     go:this.classList.contains('delete')?'addFavorites2':'delFavorites0',  // check add or dell
-                });
+                };
+
+                BX.ajax.runComponentAction('local.favorites:add.favorites',
+                    'sendFavorites', { // Вызывается без постфикса Action
+                        mode: 'class',
+                        data: data_param, // ключи объекта data соответствуют параметрам метода
+                    }).then(function(response) {
+                        if (response.status === 'success') { // Если форма успешно отправилась
+                            console.log(response.data);
+                        }
+                    });
 
                 return BX.PreventDefault(e);
             }
         );
-
-        const url_ = `<?=Option::get("local.favorites", "FAVOR_URL_AJAX", '')?>`;
-        const getPostData = (data) => {
-            BX.ajax({
-                url: url_,
-                data: data,
-                method: 'POST',
-                dataType: 'json',
-                timeout: 30,
-                async: true,
-                processData: true,
-                scriptsRunFirst: true,
-                emulateOnload: true,
-                start: true,
-                cache: false,
-                onsuccess: function(dataJson) {
-                    if (dataJson.error) {
-                        console.log(dataJson);
-                    } else {
-                        console.log(dataJson);
-                    }
-                },
-                onfailure: function(e){
-                    console.error(e);
-                }
-            });
-        }
     });
 </script>

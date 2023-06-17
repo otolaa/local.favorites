@@ -7,7 +7,6 @@ use \Bitrix\Main\Config\Option;
 //use \Local\Favorites\FavoritesTable;
 
 use Bitrix\Main\Application;
-use Bitrix\Main\Web\Cookie;
 
 /**
  * Class Api
