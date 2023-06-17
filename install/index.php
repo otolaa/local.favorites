@@ -101,7 +101,6 @@ Class local_favorites extends CModule
         Option::set($this->MODULE_ID, 'FAVOR_ERROR', 'Произошла ошибка при добавлении в избранное!?');
         Option::set($this->MODULE_ID, 'FAVOR_COOKIE_CODE', 'FAVORITES');
         Option::set($this->MODULE_ID, 'FAVOR_COOKIE_TIME', '1');  // срок действия - 1 день
-        Option::set($this->MODULE_ID, 'FAVOR_URL_AJAX', '/local/components/local.favorites/add.favorites/ajax.php');
         $APPLICATION->IncludeAdminFile("Установка модуля ".$this->MODULE_ID, $this->getPageLocal('step.php'));
         return true;
     }

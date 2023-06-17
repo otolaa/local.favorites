@@ -20,7 +20,6 @@ $aTabs = [
             "Для системы",
             ["FAVOR_COOKIE_CODE", "Символьный код cookie", null, ["text",50]],
             ["FAVOR_COOKIE_TIME", "Время жизни cookie в днях", null, ["text",50]],
-            ['FAVOR_URL_AJAX', 'Путь для AJAX', null, ['text',50]],
         ]
     ],
     [
