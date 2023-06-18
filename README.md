@@ -1,38 +1,44 @@
-# Избранное (Модуль для 1С-Битрикс)
+# Избранные ID элементы для Bitrix
 
 Модуль для добавления избранных ID элементов.
 Если пользователь не авторизован, использует Cookie.
 
 ```php
+use Bitrix\Main\Loader;
 use Local\Favorites\Api;
 
-// add
-$elem_id = 2;
-$res = Api::add($elem_id);
-
-// delete
-$res = Api::dell(3);
-
-// get list 
-$items = Api::getList();
-
-return $items;
+if (Loader::includeModule("local.favorites") {
+    // add
+    $elem_id = 2;
+    $res = Api::add($elem_id);
+    
+    // delete
+    $res = Api::dell(3);
+    
+    // get list 
+    $items = Api::getList();
+    
+    return $items;
+}
 ```
 
 ORM DataManager для элементов в базе данных, таблица b_favorites:
 ```php
+use Bitrix\Main\Loader;
 use Local\Favorites\FavoritesTable;
 
-$rows = [];
-$result = FavoritesTable::getList([
-    'select' => ['ID','ELEM_ID'],
-    'filter' => ['=USER_ID' => $USER_ID],
-]);
-
-while ($row = $result->fetch())
-    $rows[] = $row['ELEM_ID'];
-
-return $rows;
+if (Loader::includeModule("local.favorites") {
+    $rows = [];
+    $result = FavoritesTable::getList([
+        'select' => ['ID','ELEM_ID'],
+        'filter' => ['=USER_ID' => $USER_ID],
+    ]);
+    
+    while ($row = $result->fetch())
+        $rows[] = $row['ELEM_ID'];
+    
+    return $rows;
+}
 ```
 
 
