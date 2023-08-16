@@ -7,12 +7,12 @@ loc::loadMessages(__FILE__);
 
 Class local_favorites extends CModule
 {
-    var $MODULE_ID = "local.favorites";
-    var $MODULE_VERSION;
-    var $MODULE_VERSION_DATE;
-    var $MODULE_NAME;
-    var $MODULE_DESCRIPTION;
-    var $MODULE_CSS;
+    public $MODULE_ID = "local.favorites";
+    public $MODULE_VERSION;
+    public $MODULE_VERSION_DATE;
+    public $MODULE_NAME;
+    public $MODULE_DESCRIPTION;
+    public $MODULE_CSS;
 
     public function __construct()
     {
